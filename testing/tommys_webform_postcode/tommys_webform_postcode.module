@@ -1,0 +1,69 @@
+<?php
+/*
+* custum module for the alter web  form  filed and 
+
+*add address by ajax in webform address filed 
+*
+*
+*
+*
+*
+*/
+
+
+
+function tommys_webform_postcode_form_alter(&$form, &$form_state, $form_id) {
+    
+   if (strpos($form_id, 'webform_client_form_') === 0) {
+   
+     $form['workflow']['upload_' . $form['type']['#value']] = array(
+      '#type' => 'pac-input',
+      '#title' => t('tommys_webform_filed'),
+      '#default_value' => variable_get('pac-input' . $form['type']['#value'], 1),
+      '#options' => array(t('Disabled'), t('Enabled')),
+    );
+	$form['edit-submitted-lorem-ipsum']=array(
+	
+	
+	
+		'#type'=>'radio',
+		
+		'#title'=>'test'
+	);
+   
+   $form['#attached']['js'] = array(
+  drupal_get_path('module', 'ajax_example') . 'js/tommys_webform_postcode.js',
+        '#type'=>'textarea',
+		
+		'#title'=>'test'
+  
+ 
+);
+$form['field_job']['und'][0]['#prefix'] = 'yours html';
+
+
+$form['edit-submitted-country']=array(
+	
+	
+	
+		'#type'=>'textarea',
+		
+		'#id'=>'pac-input'
+		
+		
+		
+	);
+
+
+
+
+
+
+
+
+
+
+
+
+  }
+}
