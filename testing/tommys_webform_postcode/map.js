@@ -1,10 +1,13 @@
+<script language="javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>		
 
-jQuery(document).ready(function() {
-				var inputs = jQuery('submitted[postal_code], getLocation()').parents('.form-item');
-							inputs.prependTo('.webform-client-form');
-						}
-<script language="javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>								
+
+
+
+
+
+						
 	<script language="javascript">
+	window.alert("sometext");
 function getLocation(){
   getAddressInfoByZip(document.forms[0].zip.value);
 }
@@ -57,9 +60,4 @@ function getAddressInfoByZip(zip){
     response({success:false});
   }
 }
-</script>									
-									
-
-
-
-
+</script>						

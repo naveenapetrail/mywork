@@ -1,10 +1,6 @@
 <?php
 /*
-* custum module for the alter web  form  filed and 
-
-*add address by ajax in webform address filed 
-*
-*
+* 
 *
 *
 *
@@ -12,58 +8,57 @@
 
 
 
-function tommys_webform_postcode_form_alter(&$form, &$form_state, $form_id) {
-    
-   if (strpos($form_id, 'webform_client_form_') === 0) {
-   
-     $form['workflow']['upload_' . $form['type']['#value']] = array(
-      '#type' => 'pac-input',
-      '#title' => t('tommys_webform_filed'),
-      '#default_value' => variable_get('pac-input' . $form['type']['#value'], 1),
-      '#options' => array(t('Disabled'), t('Enabled')),
-    );
-	$form['edit-submitted-lorem-ipsum']=array(
+	function tommys_webform_postcode_form_alter(&$form, &$form_state, $form_id) {
+		if (strpos($form_id, 'webform_client_form_') === 0) {
+			
+				$form['name']  = array('#type' => 'textfield',
+					'#title' => t('zipcode'),
+						'#maxlength' => USERNAME_MAX_LENGTH,
+							'#size' => 5,
+							
+							'#required' => TRUE,
+							'#attributes' => array(
+							'onblur' => 'clickrecall(this, "getLocation()")',
+							'onclick' => 'clickclear(this, "getLocation()")'
+								),
+							'#value' => t(''),
+							'#ajax' => array(
+							'callback' => 'getLocation()',
+							'wrapper' => 'participants',
+						),
+						
+				);
+					$form['add_participant'] = array(
+					'#type' => 'button',
+					'#value' => t('Get address'),
+					'#href' => 'getLocation()',
+					'#ajax' => array(
+					'callback' => 'getLocation()',
+					'wrapper' => 'participants',
+						),
+				);
+				
+				
+				
+				
+				
+
+
+		}
+		
+	}
+	
+	function ajax_pre_render_element_alter($element) {
+		
+		
+		
+		
+		
+		
+		
+	}
 	
 	
 	
-		'#type'=>'radio',
-		
-		'#title'=>'test'
-	);
-   
-   $form['#attached']['js'] = array(
-  drupal_get_path('module', 'ajax_example') . 'js/tommys_webform_postcode.js',
-        '#type'=>'textarea',
-		
-		'#title'=>'test'
-  
- 
-);
-$form['field_job']['und'][0]['#prefix'] = 'yours html';
-
-
-$form['edit-submitted-country']=array(
 	
 	
-	
-		'#type'=>'textarea',
-		
-		'#id'=>'pac-input'
-		
-		
-		
-	);
-
-
-
-
-
-
-
-
-
-
-
-
-  }
-}
