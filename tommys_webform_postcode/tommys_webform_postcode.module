@@ -65,7 +65,47 @@
 	}
 	
 	
+	function webformautoaddress_postcode_nl_lookup_alter($key, $secret, $postal_code, $house_number) {
+								// First, parse the postal code and house number (which should split the
+												// addition).
+					$postal_code = webformautoaddress_parse_postal_code($postal_code);
+									list($house_number, $house_number_addition) = 					webformautoaddress_parse_house_number($house_number);
+										if (empty($postal_code) || empty($house_number)) {
+								return array();
+								}
+								// We prevent making unnecessary lookups by caching results, also wrong
+								// lookups!
+									$cache_key = 'webformautoaddress:' . $postal_code . ':' . $house_number . ':' . $house_number_addition;
 
+  				
+							$data = &drupal_static(__FUNCTION__);
+							if (!isset($data)) {
+											// When not stored in local memory, check the cache stored in the database.
+			if ($cache = cache_get($cache_key)) {
+      $data = $cache->data;
+    }
+    else {
+      // Construct the URL to perform the lookup with.
+      $url = 'https://' . $key . ':' . $secret . '@api.postcode.nl/rest/addresses/' . $postal_code . '/' . $house_number . '/' . $house_number_addition;
+
+      $response = drupal_http_request(url($url));
+
+      // When the lookup went correctly, parse the JSON data.
+      if ($response->code == 200) {
+        $data = drupal_json_decode($response->data);
+      }
+
+      // Store the result in the cache of the database.
+      //
+      // NB: if the lookup didn't responded in a correct result, we still store
+      // a 'mark' in the database. In this way also invalid lookups will be
+      // served from cache the next time.
+      cache_set($cache_key, $data, 'cache', time() + 900);
+    }
+  }
+
+  return $data;
+}
 
 	
 	
