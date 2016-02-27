@@ -1,0 +1,30 @@
+<?php
+/*
+
+
+
+
+
+*/
+
+
+
+
+function tommys_webform_postcode($field) {
+  return array(
+    'columns' => array(
+      'plate_number' => array(
+        'type' => 'varchar',
+        'length' => 8,
+        'not null' => TRUE,
+      ),
+      'state' => array(
+        'type' => 'varchar',
+        'length' => 2,
+        'not null' => FALSE,
+      ),
+    ),
+  );
+}
+
+
