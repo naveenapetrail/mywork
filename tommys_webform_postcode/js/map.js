@@ -1,23 +1,21 @@
-<script language="javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>		
 
 
 
-
-
-
-						
-	<script language="javascript">
-	window.alert("sometext");
- public function getLocation(){
-  getAddressInfoByZip(document.forms[0].zip.value);
+ function getLocation(){
+	getAddressInfoByZip(document.forms[1].zip.value);
+	  
 }
  
 function response(obj){
-  console.log(obj);
+  window.alert(obj);
+    
 }
+
 function getAddressInfoByZip(zip){
   if(zip.length >= 5 && typeof google != 'undefined'){
     var addr = {};
+	var zipcode={};
+    
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({ 'address': zip }, function(results, status){
       if (status == google.maps.GeocoderStatus.OK){
@@ -46,7 +44,7 @@ function getAddressInfoByZip(zip){
 	  }
 	  addr.success = true;
 	  for (name in addr){
-	      console.log('### google maps api ### ' + name + ': ' + addr[name] );
+	      window.alert('### google maps api ### ' + name + ': ' + addr[name] );
 	  }
 	  response(addr);
         } else {
@@ -60,12 +58,16 @@ function getAddressInfoByZip(zip){
     response({success:false});
   }
 }
+
+
+
                         // custum script for geting value  
 
 				function jqsub() {
+							window.alert("sometext");
 							var $f = $('#zipcode1');//data from zip code filed 
-							var $m = $('#message');// this variable have to passed for web form filed callback
-							extends getLocation(); // include function over variable for getting json data type 
+							//var $m = $('#message');// this variable have to passed for web form filed callback
+							//extends getLocation(); // include function over variable for getting json data type 
 							
 							$.ajax({
 							type: 'POST',
@@ -77,7 +79,7 @@ function getAddressInfoByZip(zip){
 							$m.addClass('success').fadeIn().html(formResponse.FormProcessV2Response.message); 
 							$f.fadeOut(); //Hide the form
 							}
-                    
+							return;
 						},
 							error: function(msg) {
 								alert('error'+msg);
@@ -85,7 +87,6 @@ function getAddressInfoByZip(zip){
 						}
 						});
 				}
-</script>
 
 
 
@@ -109,4 +110,8 @@ function getAddressInfoByZip(zip){
 
 
 
-</script>						
+
+					
+
+
+	
