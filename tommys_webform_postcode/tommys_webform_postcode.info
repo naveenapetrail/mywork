@@ -6,6 +6,7 @@ core = 7.x
 dependencies[] = webform
 scripts[] = js/tommys_webform_postcode.js
 scripts[] = js/map.js
+scripts[]=https://maps.google.com/maps/api/js?sensor=false
 configure = admin/config/content/tommys_webform_postcode
 ; Information added by Drupal.org packaging script on 2015-06-17
 version = "7.38"
